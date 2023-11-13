@@ -28,10 +28,10 @@ public class Ruolo {
     }
 
 
-    public void attacca(){
+    public void attacca(Ruolo nemico){
 
     };
-    protected void difendi(){
+    protected void difendi(Double attacco){
         
     };
 
