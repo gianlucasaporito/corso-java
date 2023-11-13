@@ -1,4 +1,4 @@
-package srl.neotechRuolo;
+package srl.neotech.giocofantasy;
 
 public class Zombie extends NonMorto {
     
@@ -15,7 +15,8 @@ public class Zombie extends NonMorto {
     protected void difendi(Double attacco){
         Double difesa =getForzaDifesa()*molDifesa;
         System.out.println(difesa+"difesa dello zombie");
-        setStamina(getStamina()-(attacco));
+        Double danno= difesa-attacco;
+        setStamina(getStamina()-danno);
         System.out.println("allo zombie resta"+getStamina()+"di stamina");
         
     };

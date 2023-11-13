@@ -1,4 +1,4 @@
-package srl.neotechRuolo;
+package srl.neotech.giocofantasy;
 
 public class Uruk extends Orco{
 
@@ -15,7 +15,8 @@ public class Uruk extends Orco{
     protected void difendi(Double attacco){
         Double difesa =getForzaDifesa()*molDifesa;
         System.out.println(difesa+"difesa dell' uruk");
-        setStamina(getStamina()-(attacco));
+        Double danno= difesa-attacco;
+        setStamina(getStamina()-danno);
         System.out.println("all'uruk resta"+getStamina()+"di stamina");
         
     };

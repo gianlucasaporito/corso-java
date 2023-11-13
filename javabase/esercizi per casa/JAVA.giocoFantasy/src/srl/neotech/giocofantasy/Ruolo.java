@@ -1,4 +1,4 @@
-package srl.neotechRuolo;
+package srl.neotech.giocofantasy;
 
 public class Ruolo {
     

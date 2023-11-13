@@ -1,4 +1,4 @@
-package srl.neotechRuolo;
+package srl.neotech.giocofantasy;
 
 public class Guerriero extends Umano{
 
@@ -15,7 +15,8 @@ public class Guerriero extends Umano{
     protected void difendi(Double attacco){
         Double difesa =getForzaDifesa()*molDifesa;
         System.out.println(difesa+"difesa del guerriero");
-        setStamina(getStamina()-(attacco));
+        Double danno= difesa-attacco;
+        setStamina(getStamina()-(danno));
         System.out.println("al guerriero resta"+getStamina()+"di stamina");
 
     };

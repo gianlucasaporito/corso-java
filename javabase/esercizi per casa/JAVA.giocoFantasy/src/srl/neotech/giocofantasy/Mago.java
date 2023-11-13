@@ -1,4 +1,4 @@
-package srl.neotechRuolo;
+package srl.neotech.giocofantasy;
 
 public class Mago extends Umano{
 
@@ -14,8 +14,9 @@ public class Mago extends Umano{
     @Override
     protected void difendi(Double attacco){
         Double difesa =getForzaDifesa()*molDifesa;
-        System.out.println(difesa+"difesa del mago");   
-        setStamina(getStamina()-(attacco));
+        System.out.println(difesa+"difesa del mago");  
+        Double danno= difesa-attacco; 
+        setStamina(getStamina()-(danno));
         System.out.println("al mago resta"+getStamina()+"di stamina");
         
     };
