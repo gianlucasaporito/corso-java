@@ -3,7 +3,7 @@ import srl.neotech.giocofantasy.Ruolo;
 import srl.neotech.giocofantasy.Uruk;
 
 public class App {
-   
+    
     public static void main(String[] args) throws Exception {
     
         Ruolo g=new Guerriero();
@@ -22,6 +22,9 @@ public class App {
         };
         if(g.getStamina()<=0){
             System.out.println("il guerriero é morto");
+        }
+        else if (u.getStamina()<=0) {
+            System.out.println("l'uruk è morto");
         };
         
     };
