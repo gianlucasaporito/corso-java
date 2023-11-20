@@ -17,7 +17,7 @@ public class Uruk extends Orco{
         System.out.println(difesa+"difesa dell' uruk");
         Double danno= difesa-attacco;
         setStamina(getStamina()-danno);
-        System.out.println("all'uruk resta"+getStamina()+"di stamina");
+        System.out.println("all'uruk resta"+getStamina()+" di stamina");
         
     };
 }

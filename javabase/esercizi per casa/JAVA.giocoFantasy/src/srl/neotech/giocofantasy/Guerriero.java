@@ -17,7 +17,7 @@ public class Guerriero extends Umano{
         System.out.println(difesa+"difesa del guerriero");
         Double danno= difesa-attacco;
         setStamina(getStamina()-(danno));
-        System.out.println("al guerriero resta"+getStamina()+"di stamina");
+        System.out.println("al guerriero resta"+getStamina()+" di stamina");
 
     };
 }
