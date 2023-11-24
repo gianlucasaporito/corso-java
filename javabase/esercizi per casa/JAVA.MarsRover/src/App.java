@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-
+import srl.neotech.marsrover.Rover;
+import srl.neotech.marsrover.Passo;
 
 public class App {
     public static void main(String[] args) throws Exception {
