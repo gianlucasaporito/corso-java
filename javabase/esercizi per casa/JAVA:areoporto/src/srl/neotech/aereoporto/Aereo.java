@@ -52,4 +52,7 @@ public class Aereo {
     public void setPassegeriABordo(ArrayList<Passeggero> passegeriABordo) {
         this.passegeriABordo = passegeriABordo;
     }
+
+   
+
 }

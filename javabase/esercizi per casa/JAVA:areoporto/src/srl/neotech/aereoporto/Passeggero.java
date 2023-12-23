@@ -3,6 +3,7 @@ package srl.neotech.aereoporto;
 public class Passeggero {
     private Integer eta;
     private Boolean hasGiocattolo;
+    private Boolean hasFiore;
     private Esesso sesso;
     private EstatoPassegero statopassegero;
     public Integer getEta() {
@@ -17,7 +18,7 @@ public class Passeggero {
     public void setHasGiocattolo(Boolean hasGiocattolo) {
         this.hasGiocattolo = hasGiocattolo;
     }
-    public Esesso getSesso() {
+    public Esesso getSesso(Esesso femmina) {
         return sesso;
     }
     public void setSesso(Esesso sesso) {
@@ -28,5 +29,11 @@ public class Passeggero {
     }
     public void setStatopassegero(EstatoPassegero statopassegero) {
         this.statopassegero = statopassegero;
+    }
+    public Boolean getHasFiore() {
+        return hasFiore;
+    }
+    public void setHasFiore(Boolean hasFiore) {
+        this.hasFiore = hasFiore;
     }
 }

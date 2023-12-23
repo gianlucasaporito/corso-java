@@ -4,11 +4,16 @@ import srl.neotech.aereoporto.Aereoporto;
 import srl.neotech.aereoporto.Esesso;
 import srl.neotech.aereoporto.EstatoAereo;
 import srl.neotech.aereoporto.EstatoPassegero;
+import srl.neotech.aereoporto.Passeggero;
 import srl.neotech.aereoporto.PasseggeroBusiness;
 import srl.neotech.aereoporto.PasseggeroFamiliare;
 import srl.neotech.aereoporto.PasseggeroTurista;
 
 public class App {
+    /**
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         Random r=new Random();
         
@@ -23,7 +28,7 @@ public class App {
             Aereo aereoInPar = new Aereo();
             aereoInPar.setCapienzaPassegeri(r.nextInt(500));
             aereoInPar.setDistanzaAereoporto(0);
-            aereoInPar.setVelocita(r.nextInt(5));
+            aereoInPar.setVelocita(r.nextInt(8-1+1)+1);
             aereoInPar.setCostruttore(null);
             aereoInPar.setModello(null);
             fiumicino.getAereiInPartenza().add(aereoInPar);
@@ -92,9 +97,10 @@ public class App {
                 Aereo aereoInArr =new Aereo();
                 aereoInArr.setCostruttore(null);
                 aereoInArr.setModello(null);
-                aereoInArr.setVelocita(r.nextInt(5));
+                aereoInArr.setVelocita(r.nextInt(8-1+1)+1);
                 aereoInArr.setStatoAereo(EstatoAereo.IN_ARRIVO);
                 aereoInArr.setCapienzaPassegeri(r.nextInt(500));
+                aereoInArr.setDistanzaAereoporto(fiumicino.getSpazioAereo());
 
                     //----------PASSEGERI AEREO IN ARRIVO --------
                 for (int j=0;j<aereoInArr.getCapienzaPassegeri();j++){
@@ -103,7 +109,7 @@ public class App {
                 PasseggeroTurista passegero1=new PasseggeroTurista();
                 passegero1.setEta(r.nextInt(100-1+1)+1);
                 passegero1.setSesso(Esesso.MASCHIO);
-                passegero1.setStatopassegero(EstatoPassegero.DA_IMBARCARE);
+                passegero1.setStatopassegero(EstatoPassegero.IMBARCATO);
                 passegero1.setHasGiocattolo(false);
                 passegero1.setHasGiornale(false);
                 aereoInArr.getPassegeriABordo().add(passegero1);
@@ -112,7 +118,7 @@ public class App {
                 PasseggeroTurista passegero2=new PasseggeroTurista();
                 passegero2.setEta(r.nextInt(100-1+1)+1);
                 passegero2.setSesso(Esesso.FEMMINA);
-                passegero2.setStatopassegero(EstatoPassegero.DA_IMBARCARE);
+                passegero2.setStatopassegero(EstatoPassegero.IMBARCATO);
                 passegero2.setHasGiocattolo(false);
                 passegero2.setHasGiornale(false);
                 aereoInArr.getPassegeriABordo().add(passegero2);
@@ -121,7 +127,7 @@ public class App {
                 PasseggeroFamiliare passegero3=new PasseggeroFamiliare();
                 passegero3.setEta(r.nextInt(100-1+1)+1);
                 passegero3.setSesso(Esesso.FEMMINA);
-                passegero3.setStatopassegero(EstatoPassegero.DA_IMBARCARE);
+                passegero3.setStatopassegero(EstatoPassegero.IMBARCATO);
                 passegero3.setHasGiocattolo(false);
                 passegero3.setHasSnack(false);
                  aereoInArr.getPassegeriABordo().add(passegero3);
@@ -130,7 +136,7 @@ public class App {
                 PasseggeroFamiliare passegero4=new PasseggeroFamiliare();
                 passegero4.setEta(r.nextInt(100-1+1)+1);
                 passegero4.setSesso(Esesso.MASCHIO);
-                passegero4.setStatopassegero(EstatoPassegero.DA_IMBARCARE);
+                passegero4.setStatopassegero(EstatoPassegero.IMBARCATO);
                 passegero4.setHasGiocattolo(false);
                 passegero4.setHasSnack(false);
                  aereoInArr.getPassegeriABordo().add(passegero4);
@@ -139,7 +145,7 @@ public class App {
                 PasseggeroBusiness passegero5=new PasseggeroBusiness();
                 passegero5.setEta(r.nextInt(100-1+1)+1);
                 passegero5.setSesso(Esesso.MASCHIO);
-                passegero5.setStatopassegero(EstatoPassegero.DA_IMBARCARE);
+                passegero5.setStatopassegero(EstatoPassegero.IMBARCATO);
                 passegero5.setHasGiocattolo(false);
                 passegero5.setHasChampagne(false);
                  aereoInArr.getPassegeriABordo().add(passegero5);
@@ -148,7 +154,7 @@ public class App {
                 PasseggeroBusiness passegero6=new PasseggeroBusiness();
                 passegero6.setEta(r.nextInt(100-1+1)+1);
                 passegero6.setSesso(Esesso.FEMMINA);
-                passegero6.setStatopassegero(EstatoPassegero.DA_IMBARCARE);
+                passegero6.setStatopassegero(EstatoPassegero.IMBARCATO);
                 passegero6.setHasGiocattolo(false);
                 passegero6.setHasChampagne(false);
                  aereoInArr.getPassegeriABordo().add(passegero6);
@@ -156,7 +162,17 @@ public class App {
             fiumicino.getAereiInArrivo().add(aereoInArr);
                 }
             }
-        
-                
+        //------transizione arrivo-----
+        for(int m=0;m<fiumicino.getAereiInArrivo().size();m++){
+            fiumicino.transizioneInArrivo(fiumicino.getAereiInArrivo().get(m));
+            for(int n=0;n<fiumicino.getAereiInArrivo().get(m).getPassegeriABordo().size();n++){
+               fiumicino.getAereiInArrivo().get(m).getPassegeriABordo().get(n).setStatopassegero(EstatoPassegero.SBARCATO);
+               fiumicino.checkout(fiumicino.getAereiInArrivo().get(m).getPassegeriABordo().get(n));
+               fiumicino.getAereiInArrivo().get(m).getPassegeriABordo().get(n).setStatopassegero(EstatoPassegero.IN_PRELEVAMENTO_BAGAGLIO);
+               fiumicino.getAereiInArrivo().get(m).getPassegeriABordo().get(n).setStatopassegero(EstatoPassegero.USCITO);
+               }
+            }
+       
     }
 }
+

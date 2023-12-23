@@ -47,4 +47,50 @@ public void setPassegeriInpartenza(ArrayList<Passeggero> passegeriInpartenza) {
     this.passegeriInpartenza = passegeriInpartenza;
 }
 
+// ____metodi Arrrivo aerei____
+public void transizioneInArrivo(Aereo aereoInArr){
+    while (aereoInArr.getDistanzaAereoporto()<=0){
+        aereoInArr.setDistanzaAereoporto(aereoInArr.getDistanzaAereoporto()-aereoInArr.getVelocita());
+    }
 }
+// ____metodi Partenza aerei____
+public void transizineInPartenza(Aereo aereoInPar){
+    while(aereoInPar.getDistanzaAereoporto()>=getSpazioAereo()){
+        aereoInPar.setDistanzaAereoporto(aereoInPar.getDistanzaAereoporto()+aereoInPar.getVelocita());
+    }
+}
+ // _____checkout____
+public void checkout(Passeggero passeggero){
+    if (passeggero instanceof PasseggeroBusiness) {
+        ((PasseggeroBusiness)passeggero).setHasChampagne(true);
+    }
+    if (passeggero instanceof PasseggeroTurista){
+        ((PasseggeroTurista)passeggero).setHasGiornale(true);
+    }
+    if (passeggero instanceof PasseggeroFamiliare) {
+        ((PasseggeroFamiliare)passeggero).setHasSnack(true);
+    }
+    if (passeggero.equals(Esesso.FEMMINA)) {
+        passeggero.setHasFiore(true);
+    }
+  }
+//_________checkin______
+public void checkin (Passeggero passeggero){
+    if (passeggero instanceof PasseggeroBusiness) {
+        ((PasseggeroBusiness)passeggero).setHasChampagne(true);
+    }
+    if (passeggero instanceof PasseggeroTurista){
+        ((PasseggeroTurista)passeggero).setHasGiornale(true);
+    }
+    if (passeggero instanceof PasseggeroFamiliare) {
+        ((PasseggeroFamiliare)passeggero).setHasSnack(true);
+    }
+    if (passeggero.equals(Esesso.FEMMINA)) {
+        passeggero.setHasFiore(true);
+    }
+
+}
+}
+
+
+
