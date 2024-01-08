@@ -4,6 +4,7 @@ public class Canzone {
  private String titolo;
  private String cantante;
  private String immagine;
+
 public String getTitolo() {
     return titolo;
 }
