@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>meteo </title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <!--Jquery depence -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
+    </head>
+    <body>
+
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6">
+                        <div class="text-center text-white">
+                            <!-- Page heading-->
+                            <h1 class="mb-5">METEO IN TEMPO REALE</h1>
+                            <div class="form-group"><label for="selectRegioni">regioni</label>
+                                <select class="form-control" id="selectRegioni">
+                                   <option value="0">--Selezionare una Regione--</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label for="selectProvince">province</label>
+                                <select class="form-control" id="selectProvince">
+                                    
+                                </select>
+                            </div>
+                            <div class="form-group"><label for="selectCitta">città</label>
+                                <select class="form-control" id="selectCitta">
+                                    
+                                </select>
+                            </div>
+                               
+                             <button class="btn btn-primary " id="btn-call-api" >Cerca</button>
+
+                            
+                            <table width="600px">
+                                <tr border="1">
+                                    <th>giorno</th>
+                                    <th>meteo</th>
+                                    <th>sunrise</th>
+                                    <th>sunset</th>
+                                   
+                                </tr>
+                                <tr border="1">
+                                    <td id="g0-data"></td>
+                                    <td id="g0-weather"><img style="height: 40px;" id="g0-img-weather"></td>
+                                    <td id="g0-sunrise"></td>
+                                    <td id="g0-sunset"></td>
+                                    
+                                </tr>
+                                <tr border="1">
+                                    <td id="g1-data"></td>
+                                    <td id="g1-weather"><img style="height: 40px;" id="g1-img-weather"></td>
+                                    <td id="g1-sunrise"></td>
+                                    <td id="g1-sunset"></td>
+                                    
+                                </tr>
+                                <tr border="1">
+                                    <td id="g2-data"></td>
+                                    <td id="g2-weather"><img style="height: 40px;" id="g2-img-weather"></td>
+                                    <td id="g2-sunrise"></td>
+                                    <td id="g2-sunset"></td>
+                                    
+                                </tr>
+                                <tr border="1">
+                                    <td id="g3-data"></td>
+                                    <td id="g3-weather"><img style="height: 40px;" id="g3-img-weather"></td>
+                                    <td id="g3-sunrise"></td>
+                                    <td id="g3-sunset"></td>
+                                    
+                                </tr>
+                                <tr border="1">
+                                    <td id="g4-data"></td>
+                                    <td id="g4-weather"><img style="height: 40px;" id="g4-img-weather"></td>
+                                    <td id="g4-sunrise"></td>
+                                    <td id="g4-sunset"></td>
+                                    
+                                </tr>
+                                <tr border="1">
+                                    <td id="g5-data"></td>
+                                    <td id="g5-weather"><img style="height: 40px;" id="g5-img-weather"></td>
+                                    <td id="g5-sunrise"></td>
+                                    <td id="g5-sunset"></td>
+                                    
+                                </tr>
+                                <tr border="1">
+                                    <td id="g6-data"></td>
+                                    <td id="g6-weather"><img style="height: 40px;" id="g6-img-weather"></td>
+                                    <td id="g6-sunrise"></td>
+                                    <td id="g6-sunset"></td>
+                                    
+                                </tr>
+                            </table>
+    </body>    
+    <script>
+        $(document).ready(function() {
+            var responseRegioni=fire_ajax_get("/getListaRegioni");
+            console.log(responseRegioni);
+            for(let i=0;i<responseRegioni.returVale.length;i++){
+                let optionHTML = '<option value='+responseRegioni.returVale[i].id_regione+'> '+responseRegioni.returVale[i].regione+'</option>';
+                $('#selectRegioni').append(optionHTML);
+            };
+
+            $("#selectRegioni").change(function(){
+            var id = $(this).children(":selected").attr("value");
+            var responseProvince=fire_ajax_get("/getListaProvince/"+id);
+            $("#selectProvince").empty();
+            console.log(responseProvince);
+            $('#selectProvince').append('<option value="0">--Selezionare una Provincia--</option>');
+            for(let i=0;i<responseProvince.returVale.length;i++){
+                let optionHTML = '<option value='+responseProvince.returVale[i].provincia_id+'> '+responseProvince.returVale[i].provincia+'</option>';
+                $('#selectProvince').append(optionHTML);
+            }
+               
+            }
+            );
+
+            $("#selectProvince").change(function(){
+            var istat = $(this).children(":selected").attr("value");
+            var responseCitta=fire_ajax_get("/getListaCitta/"+istat);
+            $("#selectCitta").empty();
+            console.log(responseCitta);
+            $('#selectCitta').append('<option value="0">--Selezionare una Citta--</option>');
+            for(let i=0;i<responseCitta.returVale.length;i++){
+                let optionHTML = '<option value='+responseCitta.returVale[i].istat+'> '+responseCitta.returVale[i].comune+'</option>';
+                $('#selectCitta').append(optionHTML);
+            }
+               
+            }
+            );
+           
+                $("#btn-call-api").click(function(){
+                var istat= $("#selectCitta").children(":selected").attr("value");
+                var risposta=fire_ajax_get("/getMeteo/"+istat);
+                console.log(risposta);               
+                $("#risposta-textarea").val(obj);
+                var obj=jQuery.parseJSON(risposta.returVale) ;    
+                
+                for(var i=0;i<7;i++)
+                {
+
+                    $("#g"+i+"-data").text(obj.daily.time[i]);
+                if(obj.daily.weather_code[i]==0){
+                    $("#g"+i+"-img-weather").attr("src","/assets/img/g0-img-weather.png")
+                };
+                if(obj.daily.weather_code[i]==51|| obj.daily.weather_code[i]==53|| obj.daily.weather_code[i]==55|| obj.daily.weather_code[i]==56|| obj.daily.weather_code[i]==57){
+                    $("#g"+i+"-img-weather").attr("src","/assets/img/g1-img-weather.png")
+                };
+                if(obj.daily.weather_code[i]==71||obj.daily.weather_code[i]==73||obj.daily.weather_code[i]==75||obj.daily.weather_code[i]==77||obj.daily.weather_code[i]==80||obj.daily.weather_code[i]==81||obj.daily.weather_code[i]==82||obj.daily.weather_code[i]==85||obj.daily.weather_code[i]==86){
+                    $("#g"+i+"-img-weather").attr("src","/assets/img/g2-img-weather.png")
+                };
+                if(obj.daily.weather_code[i]==95||obj.daily.weather_code[i]==96||obj.daily.weather_code[i]==99){
+                    $("#g"+i+"-img-weather").attr("src","/assets/img/g3-img-weather.png")
+                };
+                if(obj.daily.weather_code[i]==1||obj.daily.weather_code[i]==2||obj.daily.weather_code[i]==3){
+                    $("#g"+i+"-img-weather").attr("src","/assets/img/g4-img-weather.png")
+                };
+                if(obj.daily.weather_code[i]==45||obj.daily.weather_code[i]==48){
+                    $("#g"+i+"-img-weather").attr("src","/assets/img/g5-img-weather.png")
+                };
+                if(obj.daily.weather_code[i]==61||obj.daily.weather_code[i]==63||obj.daily.weather_code[i]==65||obj.daily.weather_code[i]==66||obj.daily.weather_code[i]==67){
+                    $("#g"+i+"-img-weather").attr("src","/assets/img/g6-img-weather.png")
+                };
+                
+                
+              
+                $("#g"+i+"-sunrise").text(obj.daily.sunrise[i]);
+                $("#g"+i+"-sunset").text(obj.daily.sunset[i]);
+                   }
+
+            });
+        });
+         
+       
+
+    </script>
+    <script src="/js/fireajax.js"></script>
+     <!-- Bootstrap core JS-->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      
+    
+
+   
+    
